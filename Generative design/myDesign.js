@@ -25,7 +25,7 @@ function drawBackround() {
 
     // Iterate over the color palette to draw each house with a different color
     for (let i = 0; i < colors.length; i++) {
-        //let xOffset = i * 350;  // Offset each house horizontally to prevent overlap
+        
         let color = getRandomColor(colors);   // Select color from the palette
         let color1 = getRandomColor(colors);
         let color2 = getRandomColor(colors);
@@ -43,14 +43,7 @@ function drawHouse1(color) {
     context.fillStyle = color;
     context.fillRect(300, 540, 300, 300);
 
-
-    // //the third house base
-    // //first block
-    // //context.fillStyle = "rgb(169, 169, 169)";
-    // context.fillRect(300, 540, 300, 300);
-
     //rim 1
-    //context.fillStyle = "rgb(169, 169, 169)";
     context.fillRect(295, 525, 90, 10);
 
     //rim 3
@@ -167,6 +160,20 @@ function drawHouse3(color2) {
     context.lineTo(1025, 325);      // Bottom-left corner (narrower)
     context.closePath();
     context.fill();
+
+    //the chimney 1
+    context.fillRect(1180, 178, 20, 40);
+
+    //the chimney 2
+    context.fillRect(1158, 178, 20, 40);
+
+    //the 1 detail of chimney 2
+    context.fillRect(1158, 170, 20, 5);
+  
+    //the 2 detail of chimney 2
+    context.fillRect(1165, 158, 5, 10);
+
+
 
 
 }
