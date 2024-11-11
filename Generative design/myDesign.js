@@ -34,6 +34,7 @@ function drawBackround() {
         drawHouse1(color);  // Pass xOffset and color
         drawHouse2(color1);  // Adjust xOffset for each house
         drawHouse3(color2);  // Adjust xOffset for each house
+        drawLayer1();
     }
 
 }
@@ -108,8 +109,6 @@ function drawHouse1(color) {
 
     //2 chimney detail
     context.fillRect(570, 145, 30, 8);
-
-
 }
 
 function drawHouse2(color1) {
@@ -172,8 +171,48 @@ function drawHouse3(color2) {
   
     //the 2 detail of chimney 2
     context.fillRect(1165, 158, 5, 10);
+}
 
+function drawLayer1(){
 
+    //1 column
+    context.fillStyle = "yellow";
+    context.fillRect(275,745, 40, 110);
 
+    //2 column
+    context.fillRect(390,745, 40, 110);
+
+    //3 column
+    context.fillRect(510,745, 40, 110);
+
+    //1 window
+    context.fillRect(510,570, 70, 170);
+
+    //2 window
+    context.fillRect(415,570, 70, 170);
+
+    //3 window
+    context.fillRect(320,570, 70, 170);
+
+    //detail 1
+    context.fillRect(395,540, 15, 15); 
+
+    //detail 2
+    context.fillRect(445,540, 15, 15); 
+
+    //detail 3
+    context.fillRect(495,540, 15, 15);   
+
+    //small window left
+    context.fillRect(330,390, 30, 100);
+
+    //small window right
+    context.fillRect(540,390, 30, 100);
+
+    //middle window
+    context.fillRect(390,360, 120, 125);
+
+    //roof window
+    context.fillRect(400,215, 100, 95);
 
 }
