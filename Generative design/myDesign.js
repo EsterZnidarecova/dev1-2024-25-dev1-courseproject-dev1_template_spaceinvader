@@ -1,7 +1,5 @@
 "use strict";
 import context from "../../scripts/context.js";
-import * as Utils from "../../scripts/utils.js";
-
 
 drawBackround();
 
@@ -26,14 +24,6 @@ function drawBackround() {
         'rgb(22, 157, 55)', // moss
         'rgb(143, 143, 143)'  //grey
     ];
-    //colors for the windows
-    let colors2 = [
-        'rgb(169, 169, 169)', // Gray
-        'rgb(255, 165, 0)',   // Orange
-        'rgb(0, 255, 0)',     // Green
-        'rgb(135, 206, 250)', // Sky blue
-        'rgb(255, 99, 71)'    // Tomato red
-    ];
 
     function getRandomColor(colors) {
         return colors[Math.floor(Math.random() * colors.length)];
@@ -41,347 +31,486 @@ function drawBackround() {
 
     for (let i = 0; i < colors.length; i++) {
 
-        let color = getRandomColor(colors);   
+        let color = getRandomColor(colors);
         let color1 = getRandomColor(colors);
         let color2 = getRandomColor(colors);
         let color3 = getRandomColor(colors1);
-        let color4 = getRandomColor(colors2);
 
 
-        drawHouse1(color);  
-        drawHouse2(color1);  
-        drawHouse3(color2);  
+        drawHouse1(color);
+        drawHouse2(color1);
+        drawHouse3(color2);
         drawLayer1House1(color3);
         drawLayer1House2(color3);
         drawLayer1House3(color3);
-        drawLayer2House1(color4);
-        drawLayer2House2(color4);
-        drawLayer2House3(color4);
+        drawLayer2House1();
+        drawLayer2House2();
+        drawLayer2House3();
     }
 }
+
 function drawHouse1(color) {
-    // Set the color for the base
+
+    let canvasWidth = context.canvas.width;
+    let canvasHeight = context.canvas.height;
+
+
+    let scaleX = canvasWidth / 1920;  
+    let scaleY = canvasHeight / 1080; 
+
+    // Base of the house
     context.fillStyle = color;
-    context.fillRect(300, 540, 300, 300);
-    //rim 1
-    context.fillRect(295, 525, 90, 10);
-    //rim 3
-    context.fillRect(398, 518, 110, 18);
-    //rim 2
-    context.fillRect(515, 525, 90, 10);
-    //the second block
-    context.fillRect(300, 335, 300, 180);
-    //rim 1
-    context.fillRect(295, 320, 98, 10);
-    //rim 2
-    context.fillRect(400, 315, 100, 15);
-    //rim 3
-    context.fillRect(505, 320, 98, 10);
-    //the third block
-    context.fillRect(300, 280, 300, 30);
-    //the detail 1 left
-    context.fillRect(330, 270, 65, 8);
-    //the detail 2 right
-    context.fillRect(505, 270, 65, 8);
-    //the detail 2 left
-    context.fillRect(290, 260, 105, 8);
-    //the detail 2 right
-    context.fillRect(505, 260, 105, 8);
-    //the roof 1 part
-    context.fillRect(400, 185, 100, 95);
-    //the roof top part
-    context.fillRect(340, 160, 220, 8);
-    //the main part of the roof 
+    context.fillRect(300 * scaleX, 540 * scaleY, 300 * scaleX, 300 * scaleY);
+
+    // Rim 1
+    context.fillRect(295 * scaleX, 525 * scaleY, 90 * scaleX, 10 * scaleY);
+    // Rim 3
+    context.fillRect(398 * scaleX, 518 * scaleY, 110 * scaleX, 18 * scaleY);
+    // Rim 2
+    context.fillRect(515 * scaleX, 525 * scaleY, 90 * scaleX, 10 * scaleY);
+
+    // Second block
+    context.fillRect(300 * scaleX, 335 * scaleY, 300 * scaleX, 180 * scaleY);
+
+    // Rim 1 (for second block)
+    context.fillRect(295 * scaleX, 320 * scaleY, 98 * scaleX, 10 * scaleY);
+    // Rim 2 (for second block)
+    context.fillRect(400 * scaleX, 315 * scaleY, 100 * scaleX, 15 * scaleY);
+    // Rim 3 (for second block)
+    context.fillRect(505 * scaleX, 320 * scaleY, 98 * scaleX, 10 * scaleY);
+
+    // Third block
+    context.fillRect(300 * scaleX, 280 * scaleY, 300 * scaleX, 30 * scaleY);
+
+    // Detail 1 left
+    context.fillRect(330 * scaleX, 270 * scaleY, 65 * scaleX, 8 * scaleY);
+    // Detail 2 right
+    context.fillRect(505 * scaleX, 270 * scaleY, 65 * scaleX, 8 * scaleY);
+    // Detail 2 left
+    context.fillRect(290 * scaleX, 260 * scaleY, 105 * scaleX, 8 * scaleY);
+    // Detail 2 right
+    context.fillRect(505 * scaleX, 260 * scaleY, 105 * scaleX, 8 * scaleY);
+
+    // Roof 1 part
+    context.fillRect(400 * scaleX, 185 * scaleY, 100 * scaleX, 95 * scaleY);
+
+    // Roof top part
+    context.fillRect(340 * scaleX, 160 * scaleY, 220 * scaleX, 8 * scaleY);
+
+    // Main part of the roof
     context.beginPath();
-    context.moveTo(350, 170);      // Starting point (top-left corner)
-    context.lineTo(550, 170);      // Top-right corner (wider)
-    context.lineTo(595, 258);      // Bottom-right corner (narrower)
-    context.lineTo(300, 258);      // Bottom-left corner (narrower)
-    context.closePath();           // Close the shape
-    // Fill the shape with the current fill color
-    context.fill();
-    //1 chimney
-    context.fillRect(300, 158, 20, 100);
-    //2 chimney
-    context.fillRect(575, 158, 20, 100);
-    //1 chimney detail 
-    context.fillRect(295, 145, 30, 8);
-    //2 chimney detail
-    context.fillRect(570, 145, 30, 8);
+    context.moveTo(350 * scaleX, 170 * scaleY); // Starting point top left corner)
+    context.lineTo(550 * scaleX, 170 * scaleY); // Top right corner 
+    context.lineTo(595 * scaleX, 258 * scaleY); // Bottom right corner 
+    context.lineTo(300 * scaleX, 258 * scaleY); // Bottom left corner 
+    context.closePath(); 
+    context.fill(); 
+
+    // Chimney 1
+    context.fillRect(300 * scaleX, 158 * scaleY, 20 * scaleX, 100 * scaleY);
+    // Chimney 2
+    context.fillRect(575 * scaleX, 158 * scaleY, 20 * scaleX, 100 * scaleY);
+
+    // Chimney detail 1
+    context.fillRect(295 * scaleX, 145 * scaleY, 30 * scaleX, 8 * scaleY);
+    // Chimney detail 2
+    context.fillRect(570 * scaleX, 145 * scaleY, 30 * scaleX, 8 * scaleY);
 }
 function drawHouse2(color1) {
+    let canvasWidth = context.canvas.width;
+    let canvasHeight = context.canvas.height;
 
+    let scaleX = canvasWidth / 1920;
+    let scaleY = canvasHeight / 1080;
+
+    // Set the color for the house
     context.fillStyle = color1;
-    //the first detail
-    context.fillRect(630, 845, 160, 10);
-    //the first block
-    context.fillRect(630, 545, 360, 295);
-    //The second detail
-    context.fillRect(630, 535, 360, 5);
-    //the third detail
-    context.fillRect(624, 505, 375, 25);
-    //the second block
-    context.fillRect(635, 360, 345, 140);
-    //the fourth detail
-    context.fillRect(624, 330, 375, 25);
-    //the roof
+
+    // The first detail
+    context.fillRect(630 * scaleX, 845 * scaleY, 160 * scaleX, 10 * scaleY);
+
+    // The first block
+    context.fillRect(630 * scaleX, 545 * scaleY, 360 * scaleX, 295 * scaleY);
+
+    // The second detail
+    context.fillRect(630 * scaleX, 535 * scaleY, 360 * scaleX, 5 * scaleY);
+
+    // The third detail
+    context.fillRect(624 * scaleX, 505 * scaleY, 375 * scaleX, 25 * scaleY);
+
+    // The second block
+    context.fillRect(635 * scaleX, 360 * scaleY, 345 * scaleX, 140 * scaleY);
+
+    // The fourth detail
+    context.fillRect(624 * scaleX, 330 * scaleY, 375 * scaleX, 25 * scaleY);
+
+    // The roof
     context.beginPath();
-    context.moveTo(805, 170);      // Starting point (top-left corner)
-    context.lineTo(805, 170);      // Top-right corner (wider)
-    context.lineTo(995, 325);      // Bottom-right corner (narrower)
-    context.lineTo(625, 325);      // Bottom-left corner (narrower)
-    context.closePath();           // Close the shape
+    context.moveTo(805 * scaleX, 170 * scaleY);
+    context.lineTo(805 * scaleX, 170 * scaleY);
+    context.lineTo(995 * scaleX, 325 * scaleY);
+    context.lineTo(625 * scaleX, 325 * scaleY);
+    context.closePath();
     context.fill();
 }
 function drawHouse3(color2) {
+    let canvasWidth = context.canvas.width;
+    let canvasHeight = context.canvas.height;
 
-    //the first block
+    let scaleX = canvasWidth / 1920;
+    let scaleY = canvasHeight / 1080;
+
     context.fillStyle = color2;
-    context.fillRect(1020, 350, 350, 490);
-    //first detail
-    context.fillRect(1020, 330, 350, 15);
-    //the roof
+
+    // The first block
+    context.fillRect(1020 * scaleX, 350 * scaleY, 350 * scaleX, 490 * scaleY);
+
+    // First detail
+    context.fillRect(1020 * scaleX, 330 * scaleY, 350 * scaleX, 15 * scaleY);
+
+    // The roof
     context.beginPath();
-    context.moveTo(1100, 220);      // Starting point (top-left corner)
-    context.lineTo(1300, 220);      // Top-right corner (wider)
-    context.lineTo(1365, 325);      // Bottom-right corner (narrower)
-    context.lineTo(1025, 325);      // Bottom-left corner (narrower)
+    context.moveTo(1100 * scaleX, 220 * scaleY);      // Top left corner
+    context.lineTo(1300 * scaleX, 220 * scaleY);      // Top right corner
+    context.lineTo(1365 * scaleX, 325 * scaleY);      // Bottom right corner
+    context.lineTo(1025 * scaleX, 325 * scaleY);      // Bottom left corner
     context.closePath();
     context.fill();
-    //the chimney 1
-    context.fillRect(1180, 178, 20, 40);
-    //the chimney 2
-    context.fillRect(1158, 178, 20, 40);
-    //the 1 detail of chimney 2
-    context.fillRect(1158, 170, 20, 5);
-    //the 2 detail of chimney 2
-    context.fillRect(1165, 158, 5, 10);
+
+    // Chimney 1
+    context.fillRect(1180 * scaleX, 178 * scaleY, 20 * scaleX, 40 * scaleY);
+
+    // Chimney 2
+    context.fillRect(1158 * scaleX, 178 * scaleY, 20 * scaleX, 40 * scaleY);
+
+    // The 1st detail of chimney 2
+    context.fillRect(1158 * scaleX, 170 * scaleY, 20 * scaleX, 5 * scaleY);
+
+    // The 2nd detail of chimney 2
+    context.fillRect(1165 * scaleX, 158 * scaleY, 5 * scaleX, 10 * scaleY);
 }
 function drawLayer1House1(color3) {
+    let canvasWidth = context.canvas.width;
+    let canvasHeight = context.canvas.height;
 
-    //1 column
+    let scaleX = canvasWidth / 1920;
+    let scaleY = canvasHeight / 1080;
+
     context.fillStyle = color3;
-    context.fillRect(275, 745, 40, 110);
-    //2 column
-    context.fillRect(390, 745, 40, 110);
-    //3 column
-    context.fillRect(510, 745, 40, 110);
-    //1 window
-    context.fillRect(510, 570, 70, 170);
-    //2 window
-    context.fillRect(415, 570, 70, 170);
-    //3 window
-    context.fillRect(320, 570, 70, 170);
-    //detail 1
-    context.fillRect(395, 540, 15, 15);
-    //detail 2
-    context.fillRect(445, 540, 15, 15);
-    //detail 3
-    context.fillRect(495, 540, 15, 15);
-    //small window left
-    context.fillRect(330, 390, 30, 100);
-    //small window right
-    context.fillRect(540, 390, 30, 100);
-    //middle window
-    context.fillRect(390, 360, 120, 125);
-    //roof window
-    context.fillRect(400, 215, 100, 95);
 
+    // 1st column
+    context.fillRect(275 * scaleX, 745 * scaleY, 40 * scaleX, 110 * scaleY);
+
+    // 2nd column
+    context.fillRect(390 * scaleX, 745 * scaleY, 40 * scaleX, 110 * scaleY);
+
+    // 3rd column
+    context.fillRect(510 * scaleX, 745 * scaleY, 40 * scaleX, 110 * scaleY);
+
+    // 1st window
+    context.fillRect(510 * scaleX, 570 * scaleY, 70 * scaleX, 170 * scaleY);
+
+    // 2nd window
+    context.fillRect(415 * scaleX, 570 * scaleY, 70 * scaleX, 170 * scaleY);
+
+    // 3rd window
+    context.fillRect(320 * scaleX, 570 * scaleY, 70 * scaleX, 170 * scaleY);
+
+    // Detail 1
+    context.fillRect(395 * scaleX, 540 * scaleY, 15 * scaleX, 15 * scaleY);
+
+    // Detail 2
+    context.fillRect(445 * scaleX, 540 * scaleY, 15 * scaleX, 15 * scaleY);
+
+    // Detail 3
+    context.fillRect(495 * scaleX, 540 * scaleY, 15 * scaleX, 15 * scaleY);
+
+    // Small window left
+    context.fillRect(330 * scaleX, 390 * scaleY, 30 * scaleX, 100 * scaleY);
+
+    // Small window right
+    context.fillRect(540 * scaleX, 390 * scaleY, 30 * scaleX, 100 * scaleY);
+
+    // Middle window
+    context.fillRect(390 * scaleX, 360 * scaleY, 120 * scaleX, 125 * scaleY);
+
+    // Roof window
+    context.fillRect(400 * scaleX, 215 * scaleY, 100 * scaleX, 95 * scaleY);
 }
 function drawLayer1House2(color3) {
+    let canvasWidth = context.canvas.width;
+    let canvasHeight = context.canvas.height;
 
-    //1 step
+    let scaleX = canvasWidth / 1920;
+    let scaleY = canvasHeight / 1080;
+
     context.fillStyle = color3;
-    context.fillRect(800, 845, 190, 10);
-    //2 step
-    context.fillRect(830, 830, 160, 10);
-    //3 step
-    context.fillRect(830, 815, 160, 10);
-    //4 step
-    context.fillRect(830, 800, 160, 10);
-    //5 step
-    context.fillRect(830, 785, 160, 10);
-    //terrace
-    context.fillRect(630, 785, 195, 20);
-    //the door
-    context.fillRect(865, 600, 85, 180);
-    //the window
-    context.fillRect(660, 600, 150, 170);
-    //light 1
-    context.fillRect(830, 640, 10, 30);
-    //light 2
-    context.fillRect(965, 640, 10, 30);
-    //the big window
-    context.fillRect(680, 380, 250, 120);
-    //the roof window
-    context.fillRect(785, 230, 40, 70);
+
+    // Step 1
+    context.fillRect(800 * scaleX, 845 * scaleY, 190 * scaleX, 10 * scaleY);
+
+    // Step 2
+    context.fillRect(830 * scaleX, 830 * scaleY, 160 * scaleX, 10 * scaleY);
+
+    // Step 3
+    context.fillRect(830 * scaleX, 815 * scaleY, 160 * scaleX, 10 * scaleY);
+
+    // Step 4
+    context.fillRect(830 * scaleX, 800 * scaleY, 160 * scaleX, 10 * scaleY);
+
+    // Step 5
+    context.fillRect(830 * scaleX, 785 * scaleY, 160 * scaleX, 10 * scaleY);
+
+    // Terrace
+    context.fillRect(630 * scaleX, 785 * scaleY, 195 * scaleX, 20 * scaleY);
+
+    // The door
+    context.fillRect(865 * scaleX, 600 * scaleY, 85 * scaleX, 180 * scaleY);
+
+    // The window
+    context.fillRect(660 * scaleX, 600 * scaleY, 150 * scaleX, 170 * scaleY);
+
+    // Light 1
+    context.fillRect(830 * scaleX, 640 * scaleY, 10 * scaleX, 30 * scaleY);
+
+    // Light 2
+    context.fillRect(965 * scaleX, 640 * scaleY, 10 * scaleX, 30 * scaleY);
+
+    // The big window
+    context.fillRect(680 * scaleX, 380 * scaleY, 250 * scaleX, 120 * scaleY);
+
+    // The roof window
+    context.fillRect(785 * scaleX, 230 * scaleY, 40 * scaleX, 70 * scaleY);
 }
 function drawLayer1House3(color3) {
-    //detail1
+    let canvasWidth = context.canvas.width;
+    let canvasHeight = context.canvas.height;
+
+
+    let scaleX = canvasWidth / 1920;
+    let scaleY = canvasHeight / 1080;
+
     context.fillStyle = color3;
-    context.fillRect(1100, 830, 8, 10);
-    //detail2
-    context.fillRect(1140, 830, 8, 10);
-    //detail3
-    context.fillRect(1180, 830, 8, 10);
-    //detail4
-    context.fillRect(1210, 830, 10, 10);
-    //detail5
-    context.fillRect(1250, 830, 10, 10);
-    //detail6
-    context.fillRect(1290, 830, 10, 10);
-    //box1
-    context.fillRect(1099, 772, 90, 55);
-    //box2
-    context.fillRect(1210, 807, 90, 20);
-    //rim1
-    context.fillRect(1100, 750, 180, 5);
-    //courtain1
-    context.fillRect(1100, 625, 50, 120);
-    //rim2
-    context.fillRect(1020, 600, 260, 20);
-    //rim3
-    context.fillRect(1100, 550, 180, 5);
-    //courtain2
-    context.fillRect(1228, 425, 50, 120);
-    //rim4
-    context.fillRect(1105, 400, 265, 20);
+
+    // Detail 1
+    context.fillRect(1100 * scaleX, 830 * scaleY, 8 * scaleX, 10 * scaleY);
+
+    // Detail 2
+    context.fillRect(1140 * scaleX, 830 * scaleY, 8 * scaleX, 10 * scaleY);
+
+    // Detail 3
+    context.fillRect(1180 * scaleX, 830 * scaleY, 8 * scaleX, 10 * scaleY);
+
+    // Detail 4
+    context.fillRect(1210 * scaleX, 830 * scaleY, 10 * scaleX, 10 * scaleY);
+
+    // Detail 5
+    context.fillRect(1250 * scaleX, 830 * scaleY, 10 * scaleX, 10 * scaleY);
+
+    // Detail 6
+    context.fillRect(1290 * scaleX, 830 * scaleY, 10 * scaleX, 10 * scaleY);
+
+    // Box 1
+    context.fillRect(1099 * scaleX, 772 * scaleY, 90 * scaleX, 55 * scaleY);
+
+    // Box 2
+    context.fillRect(1210 * scaleX, 807 * scaleY, 90 * scaleX, 20 * scaleY);
+
+    // Rim 1
+    context.fillRect(1100 * scaleX, 750 * scaleY, 180 * scaleX, 5 * scaleY);
+
+    // Curtain 1
+    context.fillRect(1100 * scaleX, 625 * scaleY, 50 * scaleX, 120 * scaleY);
+
+    // Rim 2
+    context.fillRect(1020 * scaleX, 600 * scaleY, 260 * scaleX, 20 * scaleY);
+
+    // Rim 3
+    context.fillRect(1100 * scaleX, 550 * scaleY, 180 * scaleX, 5 * scaleY);
+
+    // Curtain 2
+    context.fillRect(1228 * scaleX, 425 * scaleY, 50 * scaleX, 120 * scaleY);
+
+    // Rim 4
+    context.fillRect(1105 * scaleX, 400 * scaleY, 265 * scaleX, 20 * scaleY);
 }
 function drawLayer2House1() {
+    let canvasWidth = context.canvas.width;
+    let canvasHeight = context.canvas.height;
+
+    let scaleX = canvasWidth / 1920;
+    let scaleY = canvasHeight / 1080;
 
     context.fillStyle = "white";
 
-    //1st set the biggest windows
+    // 1st set the biggest windows
     let rows = 4;
-    let w = 21;
-    let h = 25;
-    let marginX = 397;
-    let marginY = 367;
+    let w = 21 * scaleX;
+    let h = 25 * scaleY;
+    let marginX = 397 * scaleX;
+    let marginY = 367 * scaleY;
     for (let i = 0; i < rows; i++) {
         for (let j = 0; j < rows; j++) {
-            let x = marginX + i * (w + 8);
-            let y = marginY + j * (h + 4);
+            let x = marginX + i * (w + 8 * scaleX);
+            let y = marginY + j * (h + 4 * scaleY);
             context.fillRect(x, y, w, h);
         }
     }
-    //2nd set of windows
+
+    // 2nd set of windows
     let rady = 3;
     let columns = 3;
-    let v = 21;
-    let s = 25;
-    let mezeraX = 410;
-    let mezeraY = 222;
+    let v = 21 * scaleX;
+    let s = 25 * scaleY;
+    let mezeraX = 410 * scaleX;
+    let mezeraY = 222 * scaleY;
     for (let i = 0; i < columns; i++) {
         for (let j = 0; j < rady; j++) {
-            let x = mezeraX + i * (v + 8);
-            let y = mezeraY + j * (s + 4);
+            let x = mezeraX + i * (v + 8 * scaleX);
+            let y = mezeraY + j * (s + 4 * scaleY);
             context.fillRect(x, y, w, h);
         }
     }
-    //1st set of small left
+
+    // 1st set of small left
     let ady = 3;
     let olumns = 1;
-    let o = 21;
-    let f = 25;
-    let mezeraK = 335;
-    let mezeraM = 395;
+    let o = 21 * scaleX;
+    let f = 25 * scaleY;
+    let mezeraK = 335 * scaleX;
+    let mezeraM = 395 * scaleY;
     for (let i = 0; i < olumns; i++) {
         for (let j = 0; j < ady; j++) {
-            let x = mezeraK + i * (o + 3);
-            let y = mezeraM + j * (f + 8);
+            let x = mezeraK + i * (o + 3 * scaleX);
+            let y = mezeraM + j * (f + 8 * scaleY);
             context.fillRect(x, y, w, h);
         }
     }
-    //2nd set of small right
+
+    // 2nd set of small right
     let dy = 3;
     let lumns = 1;
-    let d = 21;
-    let a = 25;
-    let mezeraA = 545;
-    let mezeraH = 395;
+    let d = 21 * scaleX;
+    let a = 25 * scaleY;
+    let mezeraA = 545 * scaleX;
+    let mezeraH = 395 * scaleY;
     for (let i = 0; i < lumns; i++) {
         for (let j = 0; j < dy; j++) {
-            let x = mezeraA + i * (d + 3);
-            let y = mezeraH + j * (a + 8);
+            let x = mezeraA + i * (d + 3 * scaleX);
+            let y = mezeraH + j * (a + 8 * scaleY);
             context.fillRect(x, y, w, h);
         }
     }
-    //bottom left
-    let y = 5;
+
+    // Bottom left
+    let yBottom = 5;
     let umns = 2;
-    let e = 21;
-    let q = 25;
-    let mezeraE = 330;
-    let mezeraR = 577;
+    let e = 21 * scaleX;
+    let q = 25 * scaleY;
+    let mezeraE = 330 * scaleX;
+    let mezeraR = 577 * scaleY;
     for (let i = 0; i < umns; i++) {
-        for (let j = 0; j < y; j++) {
-            let x = mezeraE + i * (e + 8);
-            let y = mezeraR + j * (q + 8);
+        for (let j = 0; j < yBottom; j++) {
+            let x = mezeraE + i * (e + 8 * scaleX);
+            let y = mezeraR + j * (q + 8 * scaleY);
             context.fillRect(x, y, w, h);
         }
     }
-    //bottom right
+
+    // Bottom right
     let u = 5;
     let mns = 2;
-    let l = 21;
-    let p = 25;
-    let mezeraL = 425;
-    let mezeraP = 577;
+    let l = 21 * scaleX;
+    let p = 25 * scaleY;
+    let mezeraL = 425 * scaleX;
+    let mezeraP = 577 * scaleY;
     for (let i = 0; i < mns; i++) {
         for (let j = 0; j < u; j++) {
-            let x = mezeraL + i * (l + 8);
-            let y = mezeraP + j * (p + 8);
+            let x = mezeraL + i * (l + 8 * scaleX);
+            let y = mezeraP + j * (p + 8 * scaleY);
             context.fillRect(x, y, w, h);
         }
     }
-    //the door detail 1
-    context.fillRect(520, 580, 21, 25);
-    //the door detail 2
-    context.fillRect(550, 580, 21, 25);
-    //the door
-    context.fillRect(518, 620, 55, 120);
+
+    // The door detail 1
+    context.fillRect(520 * scaleX, 580 * scaleY, 21 * scaleX, 25 * scaleY);
+
+    // The door detail 2
+    context.fillRect(550 * scaleX, 580 * scaleY, 21 * scaleX, 25 * scaleY);
+
+    // The door
+    context.fillRect(518 * scaleX, 620 * scaleY, 55 * scaleX, 120 * scaleY);
 }
 function drawLayer2House2() {
+    let canvasWidth = context.canvas.width;
+    let canvasHeight = context.canvas.height;
+
+    let scaleX = canvasWidth / 1920;
+    let scaleY = canvasHeight / 1080;
 
     context.fillStyle = "white";
-    //downstairs window left
-    context.fillRect(695, 810, 35, 25);
-    //downstairs window right
-    context.fillRect(735, 810, 35, 25);
-    //1window big
-    context.fillRect(685, 640, 45, 115);
-    //2window big
-    context.fillRect(735, 640, 45, 115);
-    //1window big detail
-    context.fillRect(685, 615, 45, 20);
-    //2window big detail
-    context.fillRect(735, 615, 45, 20);
-    //the door
-    context.fillRect(878, 640, 60, 130);
-    //main window1
-    context.fillRect(720, 430, 40, 70);
-    context.fillRect(720, 400, 40, 25);
-    //main window2
-    context.fillRect(765, 430, 40, 70);
-    context.fillRect(765, 400, 40, 25);
-    //main window3
-    context.fillRect(810, 430, 40, 70);
-    context.fillRect(810, 400, 40, 25);
-    //main window4
-    context.fillRect(855, 430, 40, 70);
-    context.fillRect(855, 400, 40, 25);
-    //the roof windows
-    context.fillRect(790, 270, 30, 25);
-    context.fillRect(790, 240, 30, 25);
+
+    // Downstairs window left
+    context.fillRect(695 * scaleX, 810 * scaleY, 35 * scaleX, 25 * scaleY);
+
+    // Downstairs window right
+    context.fillRect(735 * scaleX, 810 * scaleY, 35 * scaleX, 25 * scaleY);
+
+    // 1st big window
+    context.fillRect(685 * scaleX, 640 * scaleY, 45 * scaleX, 115 * scaleY);
+
+    // 2nd big window
+    context.fillRect(735 * scaleX, 640 * scaleY, 45 * scaleX, 115 * scaleY);
+
+    // 1st big window detail
+    context.fillRect(685 * scaleX, 615 * scaleY, 45 * scaleX, 20 * scaleY);
+
+    // 2nd big window detail
+    context.fillRect(735 * scaleX, 615 * scaleY, 45 * scaleX, 20 * scaleY);
+
+    // The door
+    context.fillRect(878 * scaleX, 640 * scaleY, 60 * scaleX, 130 * scaleY);
+
+    // Main window 1
+    context.fillRect(720 * scaleX, 430 * scaleY, 40 * scaleX, 70 * scaleY);
+    context.fillRect(720 * scaleX, 400 * scaleY, 40 * scaleX, 25 * scaleY);
+
+    // Main window 2
+    context.fillRect(765 * scaleX, 430 * scaleY, 40 * scaleX, 70 * scaleY);
+    context.fillRect(765 * scaleX, 400 * scaleY, 40 * scaleX, 25 * scaleY);
+
+    // Main window 3
+    context.fillRect(810 * scaleX, 430 * scaleY, 40 * scaleX, 70 * scaleY);
+    context.fillRect(810 * scaleX, 400 * scaleY, 40 * scaleX, 25 * scaleY);
+
+    // Main window 4
+    context.fillRect(855 * scaleX, 430 * scaleY, 40 * scaleX, 70 * scaleY);
+    context.fillRect(855 * scaleX, 400 * scaleY, 40 * scaleX, 25 * scaleY);
+
+    // The roof windows
+    context.fillRect(790 * scaleX, 270 * scaleY, 30 * scaleX, 25 * scaleY);
+    context.fillRect(790 * scaleX, 240 * scaleY, 30 * scaleX, 25 * scaleY);
 }
-function drawLayer2House3(){
+function drawLayer2House3() {
+    let canvasWidth = context.canvas.width;
+    let canvasHeight = context.canvas.height;
+
+    let scaleX = canvasWidth / 1920;
+    let scaleY = canvasHeight / 1080;
 
     context.fillStyle = "white";
-    //downstairs window left
-    context.fillRect(1150, 625, 132, 120);
-    //downstairs window right
-    context.fillRect(1103, 425.5, 132, 120);
-    //the roof window
-    context.fillRect(1175, 260, 50, 50);    
 
+    // Downstairs window left
+    context.fillRect(1150 * scaleX, 625 * scaleY, 132 * scaleX, 120 * scaleY);
+
+    // Downstairs window right
+    context.fillRect(1103 * scaleX, 425.5 * scaleY, 132 * scaleX, 120 * scaleY);
+
+    // The roof window
+    context.fillRect(1175 * scaleX, 260 * scaleY, 50 * scaleX, 50 * scaleY);
 }
+window.onresize = () => {
+    context.canvas.width = window.innerWidth;
+    context.canvas.height = window.innerHeight;
+    drawBackround();
+};
