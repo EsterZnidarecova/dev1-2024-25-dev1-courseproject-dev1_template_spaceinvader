@@ -10,8 +10,24 @@ function drawBackround() {
     //the backround color
     context.fillStyle = "rgb(255, 190, 193)";
     context.fillRect(0, 0, context.canvas.width, context.canvas.height);
-
+    //colors for the house bases
     let colors = [
+        'rgb(66, 47, 247)',   // beige
+        'rgb(255, 165, 0)',   // Orange
+        'rgb(64, 158, 57)',   // Green
+        'rgb(32, 42, 85)',    // blue
+        'rgb(255, 99, 71)'    // Tomato red
+    ];
+    //colors for the details of house
+    let colors1 = [
+        'rgb(253, 149, 25)', // Yolk
+        'rgb(252, 61, 9)',   // Ochre
+        'rgb(103, 0, 253)',  // Violet
+        'rgb(22, 157, 55)', // moss
+        'rgb(143, 143, 143)'  //grey
+    ];
+    //colors for the windows
+    let colors2 = [
         'rgb(169, 169, 169)', // Gray
         'rgb(255, 165, 0)',   // Orange
         'rgb(0, 255, 0)',     // Green
@@ -23,25 +39,25 @@ function drawBackround() {
         return colors[Math.floor(Math.random() * colors.length)];
     }
 
-    // Iterate over the color palette to draw each house with a different color
     for (let i = 0; i < colors.length; i++) {
 
-        let color = getRandomColor(colors);   // Select color from the palette
+        let color = getRandomColor(colors);   
         let color1 = getRandomColor(colors);
         let color2 = getRandomColor(colors);
+        let color3 = getRandomColor(colors1);
+        let color4 = getRandomColor(colors2);
 
-        // Draw each house with the current color and position
-        drawHouse1(color);  // Pass xOffset and color
-        drawHouse2(color1);  // Adjust xOffset for each house
-        drawHouse3(color2);  // Adjust xOffset for each house
-        drawLayer1House1();
-        drawLayer1House2();
-        drawLayer1House3();
-        drawLayer2House1();
-        drawLayer2House2();
-        drawLayer2House3();
+
+        drawHouse1(color);  
+        drawHouse2(color1);  
+        drawHouse3(color2);  
+        drawLayer1House1(color3);
+        drawLayer1House2(color3);
+        drawLayer1House3(color3);
+        drawLayer2House1(color4);
+        drawLayer2House2(color4);
+        drawLayer2House3(color4);
     }
-
 }
 function drawHouse1(color) {
     // Set the color for the base
@@ -141,10 +157,10 @@ function drawHouse3(color2) {
     //the 2 detail of chimney 2
     context.fillRect(1165, 158, 5, 10);
 }
-function drawLayer1House1() {
+function drawLayer1House1(color3) {
 
     //1 column
-    context.fillStyle = "yellow";
+    context.fillStyle = color3;
     context.fillRect(275, 745, 40, 110);
     //2 column
     context.fillRect(390, 745, 40, 110);
@@ -172,10 +188,10 @@ function drawLayer1House1() {
     context.fillRect(400, 215, 100, 95);
 
 }
-function drawLayer1House2() {
+function drawLayer1House2(color3) {
 
     //1 step
-    context.fillStyle = "yellow";
+    context.fillStyle = color3;
     context.fillRect(800, 845, 190, 10);
     //2 step
     context.fillRect(830, 830, 160, 10);
@@ -200,9 +216,9 @@ function drawLayer1House2() {
     //the roof window
     context.fillRect(785, 230, 40, 70);
 }
-function drawLayer1House3() {
+function drawLayer1House3(color3) {
     //detail1
-    context.fillStyle = "yellow";
+    context.fillStyle = color3;
     context.fillRect(1100, 830, 8, 10);
     //detail2
     context.fillRect(1140, 830, 8, 10);
@@ -233,7 +249,7 @@ function drawLayer1House3() {
 }
 function drawLayer2House1() {
 
-    context.fillStyle = "blue";
+    context.fillStyle = "white";
 
     //1st set the biggest windows
     let rows = 4;
@@ -327,7 +343,7 @@ function drawLayer2House1() {
 }
 function drawLayer2House2() {
 
-    context.fillStyle = "blue";
+    context.fillStyle = "white";
     //downstairs window left
     context.fillRect(695, 810, 35, 25);
     //downstairs window right
@@ -360,5 +376,12 @@ function drawLayer2House2() {
 }
 function drawLayer2House3(){
 
-}
+    context.fillStyle = "white";
+    //downstairs window left
+    context.fillRect(1150, 625, 132, 120);
+    //downstairs window right
+    context.fillRect(1103, 425.5, 132, 120);
+    //the roof window
+    context.fillRect(1175, 260, 50, 50);    
 
+}
