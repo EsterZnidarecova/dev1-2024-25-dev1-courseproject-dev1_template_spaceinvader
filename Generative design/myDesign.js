@@ -55,8 +55,8 @@ function drawHouse1(color) {
     let canvasHeight = context.canvas.height;
 
 
-    let scaleX = canvasWidth / 1920;  
-    let scaleY = canvasHeight / 1080; 
+    let scaleX = canvasWidth / 1920;
+    let scaleY = canvasHeight / 1080;
 
     // Base of the house
     context.fillStyle = color;
@@ -103,8 +103,8 @@ function drawHouse1(color) {
     context.lineTo(550 * scaleX, 170 * scaleY); // Top right corner 
     context.lineTo(595 * scaleX, 258 * scaleY); // Bottom right corner 
     context.lineTo(300 * scaleX, 258 * scaleY); // Bottom left corner 
-    context.closePath(); 
-    context.fill(); 
+    context.closePath();
+    context.fill();
 
     // Chimney 1
     context.fillRect(300 * scaleX, 158 * scaleY, 20 * scaleX, 100 * scaleY);
