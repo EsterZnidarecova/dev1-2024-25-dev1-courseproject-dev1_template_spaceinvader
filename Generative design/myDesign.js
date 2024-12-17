@@ -1,41 +1,82 @@
 "use strict";
 import context from "../../scripts/context.js";
 
-drawBackround();
+let snowflakes = []; // Array to hold snowflake objects
 
-function drawBackround() {
+// Predefine the colors for houses so they do not change on each refresh
+let houseColors = [
+    'rgb(66, 47, 247)',   // beige
+    'rgb(255, 165, 0)',   // Orange
+    'rgb(64, 158, 57)',   // Green
+    'rgb(32, 42, 85)',    // blue
+    'rgb(255, 99, 71)'    // Tomato red
+];
 
-    //the backround color
+let houseDetailColors = [
+    'rgb(253, 149, 25)', // Yolk
+    'rgb(252, 61, 9)',   // Ochre
+    'rgb(103, 0, 253)',  // Violet
+    'rgb(22, 157, 55)',  // moss
+    'rgb(143, 143, 143)' // grey
+];
+
+let snowflakesSpeedRange = 1.5; // Snowflake speed range
+
+// Function to create snowflakes
+function createSnowflakes() {
+    for (let i = 0; i < 100; i++) {
+        let snowflake = {
+            x: Math.random() * context.canvas.width, // Random X position
+            y: Math.random() * context.canvas.height, // Random Y position
+            radius: Math.random() * 4 + 1, // Random size
+            speed: Math.random() * snowflakesSpeedRange + 0.5, // Speed range for slower snow (between 0.5 and 2)
+            opacity: Math.random() * 0.5 + 0.2 // Random opacity for variation
+        };
+        snowflakes.push(snowflake);
+    }
+}
+
+// Function to draw snowflakes
+function drawSnowflakes() {
+    context.fillStyle = "rgba(255, 255, 255, 0.8)"; // Snowflake color
+    for (let i = 0; i < snowflakes.length; i++) {
+        let snowflake = snowflakes[i];
+        context.beginPath();
+        context.arc(snowflake.x, snowflake.y, snowflake.radius, 0, Math.PI * 2);
+        context.fill();
+    }
+}
+
+// Function to update snowflake positions
+function updateSnowflakes() {
+    for (let i = 0; i < snowflakes.length; i++) {
+        let snowflake = snowflakes[i];
+        snowflake.y += snowflake.speed; // Move snowflake downwards
+
+        // If snowflake goes off the canvas, reset its position to the top
+        if (snowflake.y > context.canvas.height) {
+            snowflake.y = -snowflake.radius;
+            snowflake.x = Math.random() * context.canvas.width;
+        }
+    }
+}
+
+function drawBackground() {
+    // the background color
     context.fillStyle = "rgb(255, 190, 193)";
     context.fillRect(0, 0, context.canvas.width, context.canvas.height);
-    //colors for the house bases
-    let colors = [
-        'rgb(66, 47, 247)',   // beige
-        'rgb(255, 165, 0)',   // Orange
-        'rgb(64, 158, 57)',   // Green
-        'rgb(32, 42, 85)',    // blue
-        'rgb(255, 99, 71)'    // Tomato red
-    ];
-    //colors for the details of house
-    let colors1 = [
-        'rgb(253, 149, 25)', // Yolk
-        'rgb(252, 61, 9)',   // Ochre
-        'rgb(103, 0, 253)',  // Violet
-        'rgb(22, 157, 55)', // moss
-        'rgb(143, 143, 143)'  //grey
-    ];
 
+    // Function to get random color from predefined array
     function getRandomColor(colors) {
         return colors[Math.floor(Math.random() * colors.length)];
     }
 
-    for (let i = 0; i < colors.length; i++) {
-
-        let color = getRandomColor(colors);
-        let color1 = getRandomColor(colors);
-        let color2 = getRandomColor(colors);
-        let color3 = getRandomColor(colors1);
-
+    // Draw houses with predefined colors
+    for (let i = 0; i < houseColors.length; i++) {
+        let color = houseColors[i];
+        let color1 = houseColors[i]; // Or choose a different house base color
+        let color2 = houseColors[i]; // Same here
+        let color3 = getRandomColor(houseDetailColors);
 
         drawHouse1(color);
         drawHouse2(color1);
@@ -47,7 +88,16 @@ function drawBackround() {
         drawLayer2House2();
         drawLayer2House3();
     }
+
+    // Draw snowflakes
+    drawSnowflakes();
+    updateSnowflakes(); // Update snowflake positions
+    requestAnimationFrame(drawBackground); // Keep the animation going
 }
+
+// Create snowflakes when the page loads
+createSnowflakes();
+drawBackground(); // Start the drawing and animation
 
 function drawHouse1(color) {
 
@@ -59,7 +109,7 @@ function drawHouse1(color) {
     let scaleY = canvasHeight / 1080;
 
     // Base of the house
-    context.fillStyle = color;
+    context.fillStyle = 'rgb(66, 47, 247)';
     context.fillRect(300 * scaleX, 540 * scaleY, 300 * scaleX, 300 * scaleY);
 
     // Rim 1
@@ -124,7 +174,7 @@ function drawHouse2(color1) {
     let scaleY = canvasHeight / 1080;
 
     // Set the color for the house
-    context.fillStyle = color1;
+    context.fillStyle = 'rgb(255, 165, 0)';
 
     // The first detail
     context.fillRect(630 * scaleX, 845 * scaleY, 160 * scaleX, 10 * scaleY);
