@@ -4,22 +4,6 @@ import context from "../../scripts/context.js";
 let snowflakes = []; // Array to hold snowflake objects
 
 // Predefine the colors for houses so they do not change on each refresh
-let houseColors = [
-    'rgb(66, 47, 247)',   // beige
-    'rgb(255, 165, 0)',   // Orange
-    'rgb(64, 158, 57)',   // Green
-    'rgb(32, 42, 85)',    // blue
-    'rgb(255, 99, 71)'    // Tomato red
-];
-
-let houseDetailColors = [
-    'rgb(253, 149, 25)', // Yolk
-    'rgb(252, 61, 9)',   // Ochre
-    'rgb(103, 0, 253)',  // Violet
-    'rgb(22, 157, 55)',  // moss
-    'rgb(143, 143, 143)' // grey
-];
-
 let snowflakesSpeedRange = 1.5; // Snowflake speed range
 
 // Function to create snowflakes
@@ -66,40 +50,27 @@ function drawBackground() {
     context.fillStyle = "rgb(255, 190, 193)";
     context.fillRect(0, 0, context.canvas.width, context.canvas.height);
 
-    // Function to get random color from predefined array
-    function getRandomColor(colors) {
-        return colors[Math.floor(Math.random() * colors.length)];
-    }
-
-    // Draw houses with predefined colors
-    for (let i = 0; i < houseColors.length; i++) {
-        let color = houseColors[i];
-        let color1 = houseColors[i]; // Or choose a different house base color
-        let color2 = houseColors[i]; // Same here
-        let color3 = getRandomColor(houseDetailColors);
-
-        drawHouse1(color);
-        drawHouse2(color1);
-        drawHouse3(color2);
-        drawLayer1House1(color3);
-        drawLayer1House2(color3);
-        drawLayer1House3(color3);
-        drawLayer2House1();
-        drawLayer2House2();
-        drawLayer2House3();
-    }
+    drawHouse1();
+    drawHouse2();
+    drawHouse3();
+    drawLayer1House1();
+    drawLayer1House2();
+    drawLayer1House3();
+    drawLayer2House1();
+    drawLayer2House2();
+    drawLayer2House3();
 
     // Draw snowflakes
     drawSnowflakes();
-    updateSnowflakes(); // Update snowflake positions
-    requestAnimationFrame(drawBackground); // Keep the animation going
+    updateSnowflakes(); 
+    requestAnimationFrame(drawBackground); 
 }
 
 // Create snowflakes when the page loads
 createSnowflakes();
 drawBackground(); // Start the drawing and animation
 
-function drawHouse1(color) {
+function drawHouse1() {
 
     let canvasWidth = context.canvas.width;
     let canvasHeight = context.canvas.height;
@@ -166,7 +137,7 @@ function drawHouse1(color) {
     // Chimney detail 2
     context.fillRect(570 * scaleX, 145 * scaleY, 30 * scaleX, 8 * scaleY);
 }
-function drawHouse2(color1) {
+function drawHouse2() {
     let canvasWidth = context.canvas.width;
     let canvasHeight = context.canvas.height;
 
@@ -203,14 +174,14 @@ function drawHouse2(color1) {
     context.closePath();
     context.fill();
 }
-function drawHouse3(color2) {
+function drawHouse3() {
     let canvasWidth = context.canvas.width;
     let canvasHeight = context.canvas.height;
 
     let scaleX = canvasWidth / 1920;
     let scaleY = canvasHeight / 1080;
 
-    context.fillStyle = color2;
+    context.fillStyle = 'rgb(255, 99, 71)';
 
     // The first block
     context.fillRect(1020 * scaleX, 350 * scaleY, 350 * scaleX, 490 * scaleY);
@@ -246,7 +217,7 @@ function drawLayer1House1(color3) {
     let scaleX = canvasWidth / 1920;
     let scaleY = canvasHeight / 1080;
 
-    context.fillStyle = color3;
+    context.fillStyle = 'rgb(252, 61, 9)';
 
     // 1st column
     context.fillRect(275 * scaleX, 745 * scaleY, 40 * scaleX, 110 * scaleY);
@@ -287,14 +258,14 @@ function drawLayer1House1(color3) {
     // Roof window
     context.fillRect(400 * scaleX, 215 * scaleY, 100 * scaleX, 95 * scaleY);
 }
-function drawLayer1House2(color3) {
+function drawLayer1House2() {
     let canvasWidth = context.canvas.width;
     let canvasHeight = context.canvas.height;
 
     let scaleX = canvasWidth / 1920;
     let scaleY = canvasHeight / 1080;
 
-    context.fillStyle = color3;
+    context.fillStyle = 'rgb(103, 0, 253)';
 
     // Step 1
     context.fillRect(800 * scaleX, 845 * scaleY, 190 * scaleX, 10 * scaleY);
@@ -332,7 +303,7 @@ function drawLayer1House2(color3) {
     // The roof window
     context.fillRect(785 * scaleX, 230 * scaleY, 40 * scaleX, 70 * scaleY);
 }
-function drawLayer1House3(color3) {
+function drawLayer1House3() {
     let canvasWidth = context.canvas.width;
     let canvasHeight = context.canvas.height;
 
@@ -340,7 +311,7 @@ function drawLayer1House3(color3) {
     let scaleX = canvasWidth / 1920;
     let scaleY = canvasHeight / 1080;
 
-    context.fillStyle = color3;
+    context.fillStyle = 'rgb(22, 157, 55)';
 
     // Detail 1
     context.fillRect(1100 * scaleX, 830 * scaleY, 8 * scaleX, 10 * scaleY);
