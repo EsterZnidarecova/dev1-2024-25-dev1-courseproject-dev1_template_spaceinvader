@@ -1,10 +1,10 @@
 "use strict";
 import context from "../../scripts/context.js";
 
-let snowflakes = []; // Array to hold snowflake objects
-let snowflakesSpeedRange = 1.5; // Snowflake speed range
-let mouseX = 0; // Store the mouse's X position
-let mouseY = 0; // Store the mouse's Y position
+let snowflakes = [];
+let snowflakesSpeedRange = 1.5;
+let mouseX = 0;
+let mouseY = 0;
 
 let clouds = [
     { x: 0, y: 50, speed: 0.5 }, // Cloud 1 moving right
@@ -58,7 +58,7 @@ function trackMouse(event) {
     mouseY = event.clientY;
 }
 
-// Function to calculate the background color
+//backround weather
 function calculateBackgroundColor() {
     let canvasWidth = context.canvas.width;
     let canvasHeight = context.canvas.height;
@@ -70,7 +70,7 @@ function calculateBackgroundColor() {
     return `rgb(${red}, ${green}, ${blue})`;
 }
 
-// Function to draw a cloud using simple circles
+//clouds
 function drawCloud(cloud) {
     context.fillStyle = "rgba(255, 255, 255, 0.8)";
     let parts = [
@@ -88,17 +88,16 @@ function drawCloud(cloud) {
     }
 }
 
-// Function to update cloud positions
+//cloud positions
 function updateCloud(cloud) {
     cloud.x += cloud.speed;
     if (cloud.x > context.canvas.width) {
-        cloud.x = -150; // Reset position to the left
+        cloud.x = -150; //position left
     } else if (cloud.x < -150) {
-        cloud.x = context.canvas.width; // Reset position to the right
+        cloud.x = context.canvas.width; //position right
     }
 }
 
-// Function to draw the background and elements
 function drawBackground() {
     context.fillStyle = calculateBackgroundColor();
     context.fillRect(0, 0, context.canvas.width, context.canvas.height);
@@ -107,6 +106,8 @@ function drawBackground() {
         drawCloud(cloud);
         updateCloud(cloud);
     }
+
+    drawTheFloor();
 
     drawHouse1();
     drawHouse2();
@@ -123,10 +124,17 @@ function drawBackground() {
     requestAnimationFrame(drawBackground);
 }
 
+function drawTheFloor() {
+    let floorY = context.canvas.height - 0;
+    context.fillStyle = 'rgb(218, 218, 218)';
+    context.fillRect(0, floorY, context.canvas.width, -300);
+}
+
 window.addEventListener("mousemove", trackMouse);
 
 createSnowflakes();
 drawBackground();
+
 
 function drawHouse1() {
 
