@@ -6,6 +6,22 @@ let snowflakesSpeedRange = 1.5; // Snowflake speed range
 let mouseX = 0; // Store the mouse's X position
 let mouseY = 0; // Store the mouse's Y position
 
+let cloud1 = { // First cloud object (moving from left to right)
+    x: 0, // Initial position
+    y: 50, // Cloud's vertical position (near the top of the canvas)
+    speed: 0.5, // Speed of cloud movement
+    width: 150, // Width of the cloud
+    height: 50, // Height of the cloud
+};
+
+let cloud2 = { // Second cloud object (moving from right to left)
+    x: context.canvas.width, // Start from the right side
+    y: 100, // Slightly lower than the first cloud for variation
+    speed: -0.5, // Speed of cloud movement (negative to move left)
+    width: 150, // Width of the cloud
+    height: 50, // Height of the cloud
+};
+
 // Function to create snowflakes
 function createSnowflakes() {
     for (let i = 0; i < 100; i++) {
@@ -52,7 +68,6 @@ function updateSnowflakes() {
             snowflake.x += dx / distance * 0.5; // Move towards the mouse horizontally
             snowflake.y += dy / distance * 0.5; // Move towards the mouse vertically
         }
-
     }
 }
 
@@ -62,9 +77,60 @@ function trackMouse(event) {
     mouseY = event.clientY; // Get mouse Y position
 }
 
+// Function to calculate realistic background colors based on mouse position
+function calculateBackgroundColor() {
+    let canvasWidth = context.canvas.width;
+    let canvasHeight = context.canvas.height;
+
+    // Map mouse position to real-life color tones
+    let red = Math.floor(200 + (mouseX / canvasWidth) * 55); // Sky blue tones (200-255)
+    let green = Math.floor(170 + (mouseY / canvasHeight) * 85); // Soft greens (170-255)
+    let blue = Math.floor(220 - (mouseY / canvasHeight) * 100); // Light to deeper blues (220-120)
+
+    // Return the RGB color as a string
+    return `rgb(${red}, ${green}, ${blue})`;
+}
+
+// Function to draw the cloud (more bubbly and fluffy)
+function drawCloud(cloud) {
+    context.fillStyle = "rgba(255, 255, 255, 0.8)"; // Cloud color (white with opacity)
+    context.beginPath();
+
+    // Create multiple small circles to make the cloud look more fluffy and bubbly
+    let cloudParts = [
+        { x: cloud.x, y: cloud.y, radius: 40 },  // Main body
+        { x: cloud.x + 40, y: cloud.y - 10, radius: 30 }, // Upper part
+        { x: cloud.x + 80, y: cloud.y + 10, radius: 25 }, // Right lower part
+        { x: cloud.x + 60, y: cloud.y + 25, radius: 20 }, // Right
+        { x: cloud.x - 20, y: cloud.y + 10, radius: 30 }, // Left
+        { x: cloud.x - 40, y: cloud.y - 10, radius: 20 }, // Left top part
+    ];
+
+    // Draw each part of the cloud
+    cloudParts.forEach(part => {
+        context.arc(part.x, part.y, part.radius, 0, Math.PI * 2);
+    });
+
+    context.fill();
+}
+
+// Function to update the cloud position
+function updateCloud(cloud) {
+    cloud.x += cloud.speed; // Move the cloud (left or right)
+
+    // If cloud moves off the screen, reset its position to the opposite side
+    if (cloud.x > context.canvas.width) {
+        cloud.x = -cloud.width; // Reset cloud to the left side for cloud1
+    } else if (cloud.x < -cloud.width) {
+        cloud.x = context.canvas.width; // Reset cloud to the right side for cloud2
+    }
+}
+
 // Function to draw the background and houses
 function drawBackground() {
-    context.fillStyle = "rgb(255, 190, 193)";
+    // Get the background color based on mouse position
+    let backgroundColor = calculateBackgroundColor();
+    context.fillStyle = backgroundColor;
     context.fillRect(0, 0, context.canvas.width, context.canvas.height);
 
     drawHouse1();
@@ -77,6 +143,14 @@ function drawBackground() {
     drawLayer2House2();
     drawLayer2House3();
 
+    // Draw the clouds
+    drawCloud(cloud1); // First cloud (left to right)
+    updateCloud(cloud1); // Update first cloud position
+
+    drawCloud(cloud2); // Second cloud (right to left)
+    updateCloud(cloud2); // Update second cloud position
+
+    // Draw snowflakes
     drawSnowflakes();
     updateSnowflakes();
     requestAnimationFrame(drawBackground);
@@ -88,6 +162,7 @@ window.addEventListener("mousemove", trackMouse);
 // Create snowflakes when the page loads
 createSnowflakes();
 drawBackground(); // Start the drawing and animation
+
 
 function drawHouse1() {
 
@@ -381,7 +456,7 @@ function drawLayer2House1() {
     let scaleX = canvasWidth / 1920;
     let scaleY = canvasHeight / 1080;
 
-    context.fillStyle = "white";
+    context.fillStyle = 'rgb(95, 199, 255)';
 
     // 1st set the biggest windows
     let rows = 4;
@@ -488,7 +563,7 @@ function drawLayer2House2() {
     let scaleX = canvasWidth / 1920;
     let scaleY = canvasHeight / 1080;
 
-    context.fillStyle = "white";
+    context.fillStyle = 'rgb(95, 255, 114)';
 
     // Downstairs window left
     context.fillRect(695 * scaleX, 810 * scaleY, 35 * scaleX, 25 * scaleY);
@@ -538,7 +613,7 @@ function drawLayer2House3() {
     let scaleX = canvasWidth / 1920;
     let scaleY = canvasHeight / 1080;
 
-    context.fillStyle = "white";
+    context.fillStyle = 'rgb(255, 229, 85)';
 
     // Downstairs window left
     context.fillRect(1150 * scaleX, 625 * scaleY, 132 * scaleX, 120 * scaleY);
