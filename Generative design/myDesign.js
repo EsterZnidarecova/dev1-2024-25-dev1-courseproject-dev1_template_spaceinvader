@@ -2,9 +2,9 @@
 import context from "../../scripts/context.js";
 
 let snowflakes = []; // Array to hold snowflake objects
-
-// Predefine the colors for houses so they do not change on each refresh
 let snowflakesSpeedRange = 1.5; // Snowflake speed range
+let mouseX = 0; // Store the mouse's X position
+let mouseY = 0; // Store the mouse's Y position
 
 // Function to create snowflakes
 function createSnowflakes() {
@@ -13,8 +13,8 @@ function createSnowflakes() {
             x: Math.random() * context.canvas.width, // Random X position
             y: Math.random() * context.canvas.height, // Random Y position
             radius: Math.random() * 4 + 1, // Random size
-            speed: Math.random() * snowflakesSpeedRange + 0.5, // Speed range for slower snow (between 0.5 and 2)
-            opacity: Math.random() * 0.5 + 0.2 // Random opacity for variation
+            speed: Math.random() * snowflakesSpeedRange + 0.5, // Speed range for slower snow
+            opacity: Math.random() * 0.5 + 0.2 // Random opacity
         };
         snowflakes.push(snowflake);
     }
@@ -42,11 +42,28 @@ function updateSnowflakes() {
             snowflake.y = -snowflake.radius;
             snowflake.x = Math.random() * context.canvas.width;
         }
+
+        // Move snowflake towards the mouse position smoothly
+        let dx = mouseX - snowflake.x;
+        let dy = mouseY - snowflake.y;
+        let distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < 200) { // If the mouse is within range
+            snowflake.x += dx / distance * 0.5; // Move towards the mouse horizontally
+            snowflake.y += dy / distance * 0.5; // Move towards the mouse vertically
+        }
+
     }
 }
 
+// Function to capture mouse movement
+function trackMouse(event) {
+    mouseX = event.clientX; // Get mouse X position
+    mouseY = event.clientY; // Get mouse Y position
+}
+
+// Function to draw the background and houses
 function drawBackground() {
-    // the background color
     context.fillStyle = "rgb(255, 190, 193)";
     context.fillRect(0, 0, context.canvas.width, context.canvas.height);
 
@@ -60,11 +77,13 @@ function drawBackground() {
     drawLayer2House2();
     drawLayer2House3();
 
-    // Draw snowflakes
     drawSnowflakes();
-    updateSnowflakes(); 
-    requestAnimationFrame(drawBackground); 
+    updateSnowflakes();
+    requestAnimationFrame(drawBackground);
 }
+
+// Add event listener for mouse movement
+window.addEventListener("mousemove", trackMouse);
 
 // Create snowflakes when the page loads
 createSnowflakes();
@@ -210,7 +229,7 @@ function drawHouse3() {
     // The 2nd detail of chimney 2
     context.fillRect(1165 * scaleX, 158 * scaleY, 5 * scaleX, 10 * scaleY);
 }
-function drawLayer1House1(color3) {
+function drawLayer1House1() {
     let canvasWidth = context.canvas.width;
     let canvasHeight = context.canvas.height;
 
