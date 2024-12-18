@@ -92,9 +92,9 @@ function drawCloud(cloud) {
 function updateCloud(cloud) {
     cloud.x += cloud.speed;
     if (cloud.x > context.canvas.width) {
-        cloud.x = -150; //position left
+        cloud.x = -150; 
     } else if (cloud.x < -150) {
-        cloud.x = context.canvas.width; //position right
+        cloud.x = context.canvas.width; 
     }
 }
 
