@@ -11,7 +11,7 @@ let clouds = [
     { x: context.canvas.width, y: 100, speed: -0.5 } // Cloud 2 moving left
 ];
 
-// Function to create snowflakes
+//snowflakes
 function createSnowflakes() {
     for (let i = 0; i < 100; i++) {
         let snowflake = {
@@ -25,7 +25,7 @@ function createSnowflakes() {
     }
 }
 
-// Function to draw snowflakes
+//draw snowflakes
 function drawSnowflakes() {
     context.fillStyle = "rgba(255, 255, 255, 0.8)";
     for (let snowflake of snowflakes) {
@@ -35,7 +35,7 @@ function drawSnowflakes() {
     }
 }
 
-// Function to update snowflake positions
+//update snowflake positions
 function updateSnowflakes() {
     for (let snowflake of snowflakes) {
         snowflake.y += snowflake.speed;
@@ -107,6 +107,13 @@ function drawBackground() {
         updateCloud(cloud);
     }
 
+    //background text
+    context.fillStyle = "white";
+    context.font = "45px Arial";
+    context.textAlign = "center";
+    context.fillText("Merry christmas!", context.canvas.width - 500 / 2, 600);
+
+
     drawTheFloor();
 
     drawHouse1();
@@ -122,13 +129,15 @@ function drawBackground() {
     drawSnowflakes();
     updateSnowflakes();
     requestAnimationFrame(drawBackground);
+
 }
 
 function drawTheFloor() {
     let floorY = context.canvas.height - 0;
-    context.fillStyle = 'rgb(218, 218, 218)';
+    context.fillStyle = 'rgb(139, 139, 139)';
     context.fillRect(0, floorY, context.canvas.width, -300);
 }
+
 
 window.addEventListener("mousemove", trackMouse);
 
